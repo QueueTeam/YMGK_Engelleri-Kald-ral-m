@@ -599,18 +599,21 @@ class _CameraScreenState extends State<CameraScreen>
 
                                                 //Preview the captured image
                                                 try {
-                                                  await Navigator.of(context)
-                                                      .push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          PreviewScreen(
-                                                        imageFile: _imageFile!,
-                                                        recentImagePath:
-                                                            _recentImagePath!,
-                                                        fileList: allFileList,
+                                                  if (_imageFile != null) {
+                                                    await Navigator.of(context)
+                                                        .push(
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            PreviewScreen(
+                                                          imageFile:
+                                                              _imageFile!,
+                                                          recentImagePath:
+                                                              _recentImagePath!,
+                                                          fileList: allFileList,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
+                                                    );
+                                                  }
                                                 } on Exception catch (e) {
                                                   return;
                                                   // TODO

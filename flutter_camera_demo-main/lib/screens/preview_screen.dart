@@ -24,7 +24,7 @@ class PreviewScreen extends StatefulWidget {
 class _PreviewScreenState extends State<PreviewScreen> {
   bool _canShowButton = true;
   String bankonte = '';
-  final assetsAudioPlayer = AssetsAudioPlayer();
+  //final assetsAudioPlayer = AssetsAudioPlayer();
 
   void hideWidget() {
     setState(() {
@@ -111,22 +111,21 @@ class _PreviewScreenState extends State<PreviewScreen> {
                               .toString()
                               .split(' ')[1]);
 
-                          String banknote =
-                              recognitions[0]['label'].toString().split(' ')[1];
+                          String banknote = (recognitions[0]['label']
+                                  .toString()
+                                  .split(' ')[1]
+                                  .isEmpty)
+                              ? 'tekrar'
+                              : recognitions[0]['label']
+                                  .toString()
+                                  .split(' ')[1];
 
-                          //print()
-
-                          //bankonte = recognitions.toString();
-
-                          print('assets/audio/$banknote.mp3');
-                          assetsAudioPlayer.open(
-                            Audio("assets/audio/$banknote.mp3"),
-                          );
-
+                          print(banknote);
                           AssetsAudioPlayer.newPlayer().open(
-                            Audio("assets/audio/10.mp3"),
+                            Audio("assets/audio/$banknote.mp3"),
+                            autoStart: true,
+                            showNotification: true,
                           );
-
                           await Tflite.close();
                         },
                         child: Stack(alignment: Alignment.center, children: [
